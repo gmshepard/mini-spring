@@ -1,5 +1,5 @@
- # IOC
- ## 最简单的bean容器
+ # [基础篇：IoC](#基础篇IoC)
+ ## [最简单的bean容器](#最简单的bean容器)
  > 分支：simple-bean-container
 
 定义一个简单的bean容器BeanFactory，内部包含一个map用以保存bean，只有注册bean和获取bean两个方法
@@ -39,7 +39,7 @@ public class SimpleBeanContainerTest {
 }
 ```
 
-## BeanDefinition和BeanDefinitionRegistry
+## [BeanDefinition和BeanDefinitionRegistry](#BeanDefinition和BeanDefinitionRegistry)
 > 分支：bean-definition-and-bean-definition-registry
 
 主要增加如下类：
@@ -74,7 +74,7 @@ class HelloService {
 }
 ```
 
-## Bean实例化策略InstantiationStrategy
+## [Bean实例化策略InstantiationStrategy](#Bean实例化策略InstantiationStrategy)
 > 分支：instantiation-strategy
 
 现在bean是在AbstractAutowireCapableBeanFactory.doCreateBean方法中用beanClass.newInstance()来实例化，仅适用于bean有无参构造函数的情况。
@@ -85,7 +85,7 @@ class HelloService {
 - SimpleInstantiationStrategy，使用bean的构造函数来实例化
 - CglibSubclassingInstantiationStrategy，使用CGLIB动态生成子类
 
-## 为bean填充属性
+## [为bean填充属性](#为bean填充属性)
 > 分支：populate-bean-with-property-values
 
 在BeanDefinition中增加和bean属性对应的PropertyValues，实例化bean之后，为bean填充属性(AbstractAutowireCapableBeanFactory#applyPropertyValues)。
@@ -111,7 +111,7 @@ public class PopulateBeanWithPropertyValuesTest {
 }
 ```
 
-## 为bean注入bean
+## [为bean注入bean](#为bean注入bean)
 > 分支：populate-bean-with-bean
 
 增加BeanReference类，包装一个bean对另一个bean的引用。实例化beanA后填充属性时，若PropertyValue#value为BeanReference，引用beanB，则先去实例化beanB。
@@ -176,7 +176,7 @@ public class PopulateBeanWithPropertyValuesTest {
 }
 ```
 
-## 资源和资源加载器
+## [资源和资源加载器](#资源和资源加载器)
 > 分支：resource-and-resource-loader
 
 Resource是资源的抽象和访问接口，简单写了三个实现类
@@ -222,7 +222,7 @@ public class ResourceAndResourceLoaderTest {
 }
 ```
 
-## 在xml文件中定义bean
+## [在xml文件中定义bean](#在xml文件中定义bean)
 > 分支：xml-file-define-bean
 
 有了资源加载器，就可以在xml格式配置文件中声明式地定义bean的信息，资源加载器读取xml文件，解析出bean的信息，然后往容器中注册BeanDefinition。
@@ -280,7 +280,7 @@ public class XmlFileDefineBeanTest {
 }
 ```
 
-## BeanFactoryPostProcess和BeanPostProcessor
+## [BeanFactoryPostProcess和BeanPostProcessor](#BeanFactoryPostProcess和BeanPostProcessor)
 > 分支：bean-factory-post-processor-and-bean-post-processor
 
 BeanFactoryPostProcess和BeanPostProcessor是spring框架中具有重量级地位的两个接口，理解了这两个接口的作用，基本就理解spring的核心原理了。为了降低理解难度分两个小节实现。
@@ -345,7 +345,7 @@ public class BeanFactoryProcessorAndBeanPostProcessorTest {
 }
 ```
 
-## 应用上下文ApplicationContext
+## [应用上下文ApplicationContext](#应用上下文ApplicationContext)
 > 分支：application-context
 
 应用上下文ApplicationContext是spring中较之于BeanFactory更为先进的IOC容器，ApplicationContext除了拥有BeanFactory的所有功能外，还支持特殊类型bean如上一节中的BeanFactoryPostProcessor和BeanPostProcessor的自动识别、资源加载、容器事件和监听器、国际化支持、单例bean自动初始化等。
@@ -360,7 +360,7 @@ BeanFactory是spring的基础设施，面向spring本身；而ApplicationContext
 
 测试：见ApplicationContextTest
 
-## bean的初始化和销毁方法
+## [bean的初始化和销毁方法](#bean的初始化和销毁方法)
 > 分支：init-and-destroy-method
 
 在spring中，定义bean的初始化和销毁方法有三种方法：
@@ -444,7 +444,7 @@ public class InitAndDestoryMethodTest {
 }
 ```
 
-## Aware接口
+## [Aware接口](#Aware接口)
 > 分支：aware-interface
 
 Aware是感知、意识的意思，Aware接口是标记性接口，其实现子类能感知容器相关的对象。常用的Aware接口有BeanFactoryAware和ApplicationContextAware，分别能让其实现者感知所属的BeanFactory和ApplicationContext。
@@ -514,7 +514,7 @@ public class AwareInterfaceTest {
 }
 ```
 
-## bean作用域，增加prototype的支持
+## [bean作用域，增加prototype的支持](#bean作用域增加prototype的支持)
 > 分支：prototype-bean
 
 每次向容器获取prototype作用域bean时，容器都会创建一个新的实例。在BeanDefinition中增加描述bean的作用域的字段scope/singleton/prototype，创建prototype作用域bean时（AbstractAutowireCapableBeanFactory#doCreateBean），不往singletonObjects中增加该bean。prototype作用域bean不执行销毁方法，查看AbstractAutowireCapableBeanFactory#registerDisposableBeanIfNecessary方法。
@@ -555,7 +555,7 @@ public class PrototypeBeanTest {
 }
 ```
 
-## FactoryBean
+## [FactoryBean](#FactoryBean)
 > 分支：factory-bean
 
 FactoryBean是一种特殊的bean，当向容器获取该bean时，容器不是返回其本身，而是返回其FactoryBean#getObject方法的返回值，可通过编码方式定义复杂的bean。
@@ -616,7 +616,7 @@ public class FactoryBeanTest {
 }
 ```
 
-## 容器事件和事件监听器
+## [容器事件和事件监听器](#容器事件和事件监听器)
 > 分支：event-and-event-listener
 
 ApplicationContext容器提供了完善的时间发布和时间监听功能。
@@ -661,7 +661,9 @@ org.springframework.test.common.event.CustomEventListener
 org.springframework.test.common.event.ContextClosedEventListener
 ```
 
-## 切点表达式
+# [基础篇：AOP](#基础篇AOP)
+
+## [切点表达式](#切点表达式)
 > 分支：pointcut-expression
 
 Joinpoint，织入点，指需要执行代理操作的某个类的某个方法(仅支持方法级别的JoinPoint)；Pointcut是JoinPoint的表述方式，能捕获JoinPoint。
@@ -692,7 +694,7 @@ public class PointcutExpressionTest {
 }
 ```
 
-## 基于JDK的动态代理
+## [基于JDK的动态代理](#基于JDK的动态代理)
 > 分支：jdk-dynamic-proxy
 
 AopProxy是获取代理对象的抽象接口，JdkDynamicAopProxy的基于JDK动态代理的具体实现。TargetSource，被代理对象的封装。MethodInterceptor，方法拦截器，是AOP Alliance的"公民"，顾名思义，可以拦截方法，可在被代理执行的方法前后增加代理行为。
@@ -719,7 +721,7 @@ public class DynamicProxyTest {
 }
 ```
 
-## 基于CGLIB的动态代理
+## [基于CGLIB的动态代理](#基于CGLIB的动态代理)
 > 分支：cglib-dynamic-proxy
 
 基于CGLIB的动态代理实现逻辑也比较简单，查看CglibAopProxy。与基于JDK的动态代理在运行期间为接口生成对象的代理对象不同，基于CGLIB的动态代理能在运行期间动态构建字节码的class文件，为类生成子类，因此被代理类不需要继承自任何接口。
@@ -751,7 +753,7 @@ public class DynamicProxyTest {
 }
 ```
 
-## AOP代理工厂
+## [AOP代理工厂](#AOP代理工厂)
 > 分支：proxy-factory
 
 增加AOP代理工厂ProxyFactory，由AdvisedSupport#proxyTargetClass属性决定使用JDK动态代理还是CGLIB动态代理。
@@ -790,7 +792,7 @@ public class DynamicProxyTest {
 }
 ```
 
-## 几种常用的Advice：BeforeAdvice/AfterAdvice/AfterReturningAdvice/ThrowsAdvice...
+## [几种常用的Advice：BeforeAdvice/AfterAdvice/AfterReturningAdvice/ThrowsAdvice...](#几种常用的AdviceBeforeAdviceAfterAdviceAfterReturningAdviceThrowsAdvice)
 > 分支： common-advice
 
 Spring将AOP联盟中的Advice细化出各种类型的Advice，常用的有BeforeAdvice/AfterAdvice/AfterReturningAdvice/ThrowsAdvice，我们可以通过扩展MethodInterceptor来实现。
@@ -840,7 +842,7 @@ public class DynamicProxyTest {
 }
 ```
 
-## PointcutAdvisor：Pointcut和Advice的组合
+## [PointcutAdvisor：Pointcut和Advice的组合](#PointcutAdvisorPointcut和Advice的组合)
 > 分支：pointcut-advisor
 
 Advisor是包含一个Pointcut和一个Advice的组合，Pointcut用于捕获JoinPoint，Advice决定在JoinPoint执行某种操作。实现了一个支持aspectj表达式的AspectJExpressionPointcutAdvisor。
@@ -876,7 +878,7 @@ public class DynamicProxyTest {
 }
 ```
 
-## 动态代理融入bean生命周期
+## [动态代理融入bean生命周期](#动态代理融入bean生命周期)
 > 分支：auto-proxy
 
 结合前面讲解的bean的生命周期，BeanPostProcessor处理阶段可以修改和替换bean，正好可以在此阶段返回代理对象替换原对象。不过我们引入一种特殊的BeanPostProcessor——InstantiationAwareBeanPostProcessor，如果InstantiationAwareBeanPostProcessor处理阶段返回代理对象，会导致短路，不会继续走原来的创建bean的流程，具体实现查看AbstractAutowireCapableBeanFactory#resolveBeforeInstantiation。
@@ -931,7 +933,9 @@ public class AutoProxyTest {
 }
 ```
 
-## PropertyPlaceholderConfigurer
+# [扩展篇](#扩展篇)
+
+## [PropertyPlaceholderConfigurer](#PropertyPlaceholderConfigurer)
 > 分支：property-placeholder-configurer
 
 经常需要将配置信息配置在properties文件中，然后在XML文件中以占位符的方式引用。
@@ -976,24 +980,488 @@ public class PropertyPlaceholderConfigurerTest {
 }
 ```
 
+## [包扫描](#包扫描)
+> 分支：package-scan
+
+结合bean的生命周期，包扫描只不过是扫描特定注解的类，提取类的相关信息组装成BeanDefinition注册到容器中。
+
+在XmlBeanDefinitionReader中解析```<context:component-scan />```标签，扫描类组装BeanDefinition然后注册到容器中的操作在ClassPathBeanDefinitionScanner#doScan中实现。
+
+测试：
+```
+@Component
+public class Car {
+
+}
+```
+package-scan.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:component-scan base-package="org.springframework.test.bean"/>
+
+</beans>
+```
+```
+public class PackageScanTest {
+
+	@Test
+	public void testScanPackage() throws Exception {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:package-scan.xml");
+
+		Car car = applicationContext.getBean("car", Car.class);
+		assertThat(car).isNotNull();
+	}
+}
+```
+
+## [@Value注解](#Value注解)
+> 分支：value-annotation
+
+注解@Value和@Autowired通过BeanPostProcessor处理。InstantiationAwareBeanPostProcessor增加postProcessPropertyValues方法，在bean实例化之后设置属性之前执行，查看AbstractAutowireCapableBeanFactory#doCreateBean方法。
+
+增加AutowiredAnnotationBeanPostProcessor用于处理注解@Value，@Autowired的处理在下一节实现，在ClassPathBeanDefinitionScanner#doScan将其添加到容器中。查看AutowiredAnnotationBeanPostProcessor#postProcessPropertyValues，其中字符解析器StringValueResolver在PropertyPlaceholderConfigurer中添加到BeanFactory中。
+
+测试：
+```
+@Component
+public class Car {
+
+	@Value("${brand}")
+	private String brand;
+}
+```
+value-annotation.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean class="org.springframework.beans.factory.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:car.properties" />
+    </bean>
+
+    <context:component-scan base-package="org.springframework.test.bean"/>
+
+</beans>
+```
+car.properties
+```
+brand=lamborghini
+```
+```
+public class ValueAnnotationTest {
+
+	@Test
+	public void testValueAnnotation() throws Exception {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:value-annotation.xml");
+
+		Car car = applicationContext.getBean("car", Car.class);
+		assertThat(car.getBrand()).isEqualTo("lamborghini");
+	}
+}
+
+```
+
+## [@Autowired注解](#Autowired注解)
+> 分支：autowired-annotation
+
+@Autowired注解的处理见AutowiredAnnotationBeanPostProcessor#postProcessPropertyValues
+
+测试：
+```
+@Component
+public class Car {
+
+}
+
+@Component
+public class Person implements InitializingBean, DisposableBean {
+
+	@Autowired
+	private Car car;
+}
+```
+autowired-annotation.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:component-scan base-package="org.springframework.test.bean"/>
+
+</beans>
+```
+```
+public class AutowiredAnnotationTest {
+
+	@Test
+	public void testAutowiredAnnotation() throws Exception {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:autowired-annotation.xml");
+
+		Person person = applicationContext.getBean(Person.class);
+		assertThat(person.getCar()).isNotNull();
+	}
+}
+```
+## [bug fix：没有为代理bean设置属性（discovered and fixed by @kerwin89）](#bug-fix没有为代理bean设置属性discovered-and-fixed-by-kerwin89)
+> 分支: populate-proxy-bean-with-property-values
+
+问题现象：没有为代理bean设置属性
+
+问题原因：织入逻辑在InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation中执行，而该方法如果返回非null，会导致"短路"，不会执行后面的设置属性逻辑。因此如果该方法中返回代理bean后，不会为代理bean设置属性。
+
+修复方案：跟spring保持一致，将织入逻辑迁移到BeanPostProcessor#postProcessAfterInitialization，即将DefaultAdvisorAutoProxyCreator#postProcessBeforeInstantiation的内容迁移到DefaultAdvisorAutoProxyCreator#postProcessAfterInitialization中。
+
+顺便完善spring的扩展机制，为InstantiationAwareBeanPostProcessor增加postProcessAfterInstantiation方法，该方法在bean实例化之后设置属性之前执行。
+
+至此，bean的生命周期比较完整了，如下：
+
+![](./assets/populate-proxy-bean-with-property-values.png)
+
+测试：
+populate-proxy-bean-with-property-values.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="worldService" class="org.springframework.test.service.WorldServiceImpl">
+        <property name="name" value="earth"/>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="pointcutAdvisor" class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* org.springframework.test.service.WorldService.explode(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
 
 
+    <bean id="methodInterceptor" class="org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
 
+    <bean id="beforeAdvice" class="org.springframework.test.common.WorldServiceBeforeAdvice"/>
 
+</beans>
+```
+```
+public class WorldServiceImpl implements WorldService {
 
+	private String name;
 
+	@Override
+	public void explode() {
+		System.out.println("The " + name + " is going to explode");
+	}
 
+	//setter and getter
+}
+```
+```
+public class AutoProxyTest {
 
+	@Test
+	public void testPopulateProxyBeanWithPropertyValues() throws Exception {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:populate-proxy-bean-with-property-values.xml");
 
+		//获取代理对象
+		WorldService worldService = applicationContext.getBean("worldService", WorldService.class);
+		worldService.explode();
+		assertThat(worldService.getName()).isEqualTo("earth");
+	}
+}
+```
 
+## [类型转换（一）](#类型转换一)
+> 分支：type-conversion-first-part
 
+spring在org.springframework.core.convert.converter包中定义了三种类型转换器接口：Converter、ConverterFactory、GenericConverter。
 
+### 一、Converter
+```
+public interface Converter<S, T> {
 
+	/**
+	 * 类型转换
+	 */
+	T convert(S source);
+}
+```
+Converter能将S类型的对象转换为T类型的对象，比如将String类型的对象转换为Integer类型的对象的实现类：
+```
+public class StringToIntegerConverter implements Converter<String, Integer> {
+	@Override
+	public Integer convert(String source) {
+		return Integer.valueOf(source);
+	}
+}
+```
+使用：
+```
+Integer num = new StringToIntegerConverter().convert("8888");
+```
 
+### 二、ConverterFactory
+```
+public interface ConverterFactory<S, R> {
 
+	<T extends R> Converter<S, T> getConverter(Class<T> targetType);
+}
+```
+Converter<S,T>接口适合一对一的类型转换，如果要将String类型转换为Ineger/Long/Float/Double/Decimal等类型，就要实现一系列的StringToInteger/StringToLongConverter/StringToFloatConverter转换器，非常不优雅。
 
+ConverterFactory接口则适合一对多的类型转换，可以将一种类型转换为另一种类型及其子类。比如将String类型转换为Ineger/Long/Float/Double/Decimal等Number类型时，只需定义一个ConverterFactory转换器：
+```
+public class StringToNumberConverterFactory implements ConverterFactory<String, Number> {
 
+	@Override
+	public <T extends Number> Converter<String, T> getConverter(Class<T> targetType) {
+		return new StringToNumber<T>(targetType);
+	}
 
+	private static final class StringToNumber<T extends Number> implements Converter<String, T> {
 
+		private final Class<T> targetType;
 
+		public StringToNumber(Class<T> targetType) {
+			this.targetType = targetType;
+		}
 
+		@Override
+		public T convert(String source) {
+			if (source.length() == 0) {
+				return null;
+			}
+
+			if (targetType.equals(Integer.class)) {
+				return (T) Integer.valueOf(source);
+			} else if (targetType.equals(Long.class)) {
+				return (T) Long.valueOf(source);
+			}
+			//TODO 其他数字类型
+
+			else {
+				throw new IllegalArgumentException(
+						"Cannot convert String [" + source + "] to target class [" + targetType.getName() + "]");
+			}
+		}
+	}
+
+}
+```
+使用：
+```
+StringToNumberConverterFactory converterFactory = new StringToNumberConverterFactory();
+Converter<String, Integer> stringToIntegerConverter = converterFactory.getConverter(Integer.class);
+Integer num = stringToIntegerConverter.convert("8888");
+```
+
+### 三、GenericConverter
+```
+public interface GenericConverter {
+
+	Set<ConvertiblePair> getConvertibleTypes();
+
+	Object convert(Object source, Class sourceType, Class targetType);
+}
+```
+String类型转换为Boolean类型的实现类：
+```
+public class StringToBooleanConverter implements GenericConverter {
+	@Override
+	public Set<ConvertiblePair> getConvertibleTypes() {
+		return Collections.singleton(new ConvertiblePair(String.class, Boolean.class));
+	}
+
+	@Override
+	public Object convert(Object source, Class sourceType, Class targetType) {
+		return Boolean.valueOf((String) source);
+	}
+}
+```
+使用:
+```
+Boolean flag = new StringToBooleanConverter().convert("true", String.class, Boolean.class);
+```
+
+ConversionService是类型转换体系的核心接口，将以上三种类型转换器整合到一起，GenericConversionService是其实现类，DefaultConversionService在GenericConversionService的基础上添加内置转换器。
+
+测试见TypeConversionFirstPartTest。
+
+## [类型转换（二）](#类型转换二)
+> 分支：type-conversion-second-part
+
+上一节实现了spring中的类型转换体系，本节将类型转换的能力整合到容器中。
+
+为了方便使用，提供了创建ConversionService的FactoryBean——ConversionServiceFactoryBean。
+
+如果有定义ConversionService，在AbstractApplicationContext#finishBeanFactoryInitialization方法中设置到容器中。
+
+类型转换的时机有两个：
+
+- 为bean填充属性时，见AbstractAutowireCapableBeanFactory#applyPropertyValues 
+- 处理@Value注解时，见AutowiredAnnotationBeanPostProcessor#postProcessPropertyValues
+
+你可能会有疑问，如果没有定义ConversionService，是怎么进行基本类型的转换的？其实spring为了向下兼容保留了一套比较旧的类型转换机制，没有定义ConversionService时会使用其进行基本类型的转换工作，不必关注旧的类型转换机制。
+
+测试：
+```
+public class Car {
+
+	private int price;
+
+	private LocalDate produceDate;
+}
+```
+```
+public class StringToLocalDateConverter implements Converter<String, LocalDate> {
+
+	private final DateTimeFormatter DATE_TIME_FORMATTER;
+
+	public StringToLocalDateConverter(String pattern) {
+		DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(pattern);
+	}
+
+	@Override
+	public LocalDate convert(String source) {
+		return LocalDate.parse(source, DATE_TIME_FORMATTER);
+	}
+}
+```
+type-conversion-second-part.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="car" class="org.springframework.test.bean.Car">
+        <property name="price" value="1000000"/>
+        <property name="produceDate" value="2021-01-01"/>
+    </bean>
+
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters" ref="converters"/>
+    </bean>
+
+    <bean id="converters" class="org.springframework.test.common.ConvertersFactoryBean"/>
+
+</beans>
+```
+```
+public class TypeConversionSecondPartTest {
+
+	@Test
+	public void testConversionService() throws Exception {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:type-conversion-second-part.xml");
+
+		Car car = applicationContext.getBean("car", Car.class);
+		assertThat(car.getPrice()).isEqualTo(1000000);
+		assertThat(car.getProduceDate()).isEqualTo(LocalDate.of(2021, 1, 1));
+	}
+}
+```
+
+# [高级篇](#高级篇)
+
+## [解决循环依赖问题（一）：没有代理对象](#解决循环依赖问题一没有代理对象)
+> 分支：circular-reference-without-proxy-bean
+
+虽然放在高级篇，其实解决循环依赖问题的方法非常简单。
+
+先理解spring中为什么会有循环依赖的问题。比如如下的代码
+
+```
+public class A {
+
+	private B b;
+
+	//getter and setter
+}
+```
+```
+public class B {
+
+	private A a;
+
+	//getter and setter
+}
+```
+```
+<beans>
+    <bean id="a" class="org.springframework.test.bean.A">
+        <property name="b" ref="b"/>
+    </bean>
+    <bean id="b" class="org.springframework.test.bean.B">
+        <property name="a" ref="a"/>
+    </bean>
+</beans>
+```
+
+A依赖B，B又依赖A，循环依赖。容器加载时会执行依赖流程：
+
+- 实例化A，发现依赖B，然后实例化B
+- 实例化B，发现依赖A，然后实例化A
+- 实例化A，发现依赖B，然后实例化B
+- ...
+
+死循环直至栈溢出。
+
+解决该问题的关键在于何时将实例化后的bean放进容器中，设置属性前还是设置属性后。现有的执行流程，bean实例化后并且设置属性后会被放进singletonObjects单例缓存中。如果我们调整一下顺序，当bean实例化后就放进singletonObjects单例缓存中，提前暴露引用，然后再设置属性，就能解决上面的循环依赖问题，执行流程变为：
+
+- 步骤一：getBean(a)，检查singletonObjects是否包含a，singletonObjects不包含a，实例化A放进singletonObjects，设置属性b，发现依赖B，尝试getBean(b)
+- 步骤二：getBean(b)，检查singletonObjects是否包含b，singletonObjects不包含a，实例化B放进singletonObjects，设置属性a，发现依赖A，尝试getBean(a)
+- 步骤三：getBean(a)，检查singletonObjects是否包含a，singletonObjects包含a，返回a
+- 步骤四：步骤二中的b拿到a，设置属性a，然后返回b
+- 步骤五：步骤一种的a拿到b，设置属性b，然后返回a
+
+可见调整bean放进singletonObjects（人称一级缓存）的时机到bean实例化后即可解决循环依赖问题。但为了和spring保持一致，我们增加一个二级缓存earlySingletonObjects，在bean实例化后将bean放进earlySingletonObjects中（见AbstractAutowireCapableBeanFactory#doCreateBean方法第6行），getBean()时检查一级缓存singletonObjects和二级缓存earlySingletonObjects中是否包含该bean，包含则直接返回（见AbstractBeanFactory#getBean第1行）。
+
+单测见CircularReferenceWithoutProxyBeanTest#testCircularReference。
+
+增加二级缓存，不能解决有代理对象时的循环依赖。原因是放进二级缓存earlySingletonObjects中的bean是实例化后的bean，而放进一级缓存singletonObjects中的bean是代理对象（代理对象在BeanPostProcessor#postProcessAfterInitialization中返回），两个缓存中的bean不一致。比如上面的例子，如果A被代理，那么B拿到的a是实例化后的A，而a是被代理后的对象，即b.getA() != a，见单测CircularReferenceWithProxyBeanTest。
+
+下一节填坑。
+
+## [解决循环依赖问题（二）：有代理对象](#解决循环依赖问题二有代理对象)
+> 分支：circular-reference-with-proxy-bean
+
+解决有代理对象时的循环依赖问题，需要提前暴露代理对象的引用，而不是暴露实例化后的bean的引用（这是上节的遗留问题的原因，应该提前暴露A的代理对象的引用）。
+
+spring中用singletonFactories（一般称第三级缓存）解决有代理对象时的循环依赖问题。在实例化后提前暴露代理对象的引用（见AbstractAutowireCapableBeanFactory#doCreateBean方法第6行）。
+
+getBean()时依次检查一级缓存singletonObjects、二级缓存earlySingletonObjects和三级缓存singletonFactories中是否包含该bean。如果三级缓存中包含该bean，则挪至二级缓存中，然后直接返回该bean。见AbstractBeanFactory#getBean方法第1行。
+
+最后将代理bean放进一级缓存singletonObjects，见AbstractAutowireCapableBeanFactory第104行。
+
+单测见CircularReferenceWithProxyBeanTest。
+
+## <p align="center">====================不容易啊，完美撒花====================</p>

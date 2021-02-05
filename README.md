@@ -1,13 +1,16 @@
 # <img src="assets/spring-framework.png" width="80" height="80"> mini-spring
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/DerekYRC/mini-spring)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![Stars](https://img.shields.io/github/stars/DerekYRC/mini-spring)](https://img.shields.io/github/stars/DerekYRC/mini-spring)
+[![Forks](https://img.shields.io/github/forks/DerekYRC/mini-spring)](https://img.shields.io/github/forks/DerekYRC/mini-spring)
+
+* [中文版](./README_CN.md)
 
 ## About
-* [中文版](./README_CN.md)
 
 The **mini-spring** is a simplified version of the Spring framework that will help you quickly get familiar with the Spring source code and grasp the core principles of Spring. The core logic of Spring is extracted, the code is extremely simplified, and the core functions of Spring, such as IoC and AOP, resource loaders, event listeners, type conversion, container extension points, bean life cycle and scope, and application context, are retained.
 
-If this project can help you, please give a **STAR, thank you!!!**
+If this project can help you, please **STAR the project, thank you!!!**
 
 ## Contents
 #### Basics
@@ -38,15 +41,27 @@ If this project can help you, please give a **STAR, thank you!!!**
 
 #### Expanding 
 * [PropertyPlaceholderConfigurer](#PropertyPlaceholderConfigurer)
-* [Type conversion](#类型转换)
 * [Package scan](#包扫描)
-* [Autowired annotation](#基于注解的依赖注入Autowired)
+* [Value annotation](#Value)
+* [Autowired annotation](#Autowired)
+* [Type conversion(first part)](#类型转换一)
+* [Type conversion(second part)](#类型转换二)
 
 #### Advanced
-* [Solve the problem of circular dependencies](#解决循环依赖问题)
+* [Solve the problem of circular dependencies(first part): without proxy bean](#解决循环依赖问题一)
+* [Solve the problem of circular dependencies(second part): with proxy bean](#解决循环依赖问题二)
+
+#### bug fix
+* [populate proxy bean with property values(discovered and fixed by kerwin89)](#没有为代理bean设置属性)
 
 ## Usage
 Each function point corresponds to a branch. Switch to the branch corresponding to the function point to see the new function. The incremental change point is described in the [changelog.md](https://github.com/DerekYRC/mini-spring/blob/main/changelog.md) file.
+
+## Contributing
+Any contributions you make are greatly appreciated.
+
+## Contact
+Please feel free to ask me any questions related to mini-spring and other technologies. My email is **15521077528@163.com**. 
 
 ## Reference
 - [《Spring源码深度解析》](https://book.douban.com/subject/25866350/)
